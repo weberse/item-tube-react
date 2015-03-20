@@ -1,17 +1,15 @@
 var jsx = require('gulp-jsx');
 var gulp = require('gulp');
-var gutil = require('gutil');
 var react = require('gulp-react');
+var concat = require('gulp-concat');
+var browserify = require('gulp-browserify')
 
-var to5Browserify = require('6to5-browserify');
+//var to5Browserify = require('6to5ify');
 var source = require('vinyl-source-stream');
-var browserify = require('browserify');
-
 var sourcemaps = require('gulp-sourcemaps');
 var es6ModuleTranspiler = require("gulp-es6-module-transpiler");
 var to5 = require('gulp-6to5');
 
-// var browserify = require('gulp-browserify');
 
 var path = {
   HTML: 'src/index.html',
@@ -20,7 +18,8 @@ var path = {
   MINIFIED_OUT: 'build.min.js',
   DEST_SRC: 'dist/src',
   DEST_BUILD: 'dist/build',
-  DEST: 'dist'
+  DEST: 'dist',
+    BUILD: ['./assets/src/app.js']
 };
 
 gulp.task('transform', function() {
@@ -49,7 +48,7 @@ gulp.task('build-web', function () {
     .pipe(es6ModuleTranspiler({type: "amd"}))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./assets'));
-})
+});
 
 gulp.task('build-app', function () {
   return gulp.src('src/**/*.js')
@@ -58,13 +57,23 @@ gulp.task('build-app', function () {
     .pipe(to5())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./assets'));
-})
+});
 
-gulp.task('build', ['build-app', 'build-web'])
+gulp.task('js', function() {
+    gulp.src(path.BUILD)
+        .pipe(browserify({
+            insertGlobals: true,
+            debug: true
+        }))
+        .pipe(concat('bundle.js'))
+        .pipe(gulp.dest('assets'));
+});
+
+gulp.task('build', ['build-app', 'build-web', 'js']);
 
 gulp.task('watch', function () {
   gulp.watch('src/**/*.jsx', ['build-web']);
   gulp.watch('src/**/*.js', ['build-app'])
-})
+});
 
 gulp.task('default', ['watch', 'build']);

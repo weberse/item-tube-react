@@ -7,14 +7,14 @@
     "url": "git://github.com/weberse/item-tube-react.git"
   },
   "devDependencies": {
-    "6to5-browserify": "^1.4.0",
+    "6to5ify": "*",
     "coffeeify": "~0.7.0",
-    "gulp": "^3.8.7",
+    "gulp": "^3.8.11",
     "gulp-6to5": "^3.0.0",
     "gulp-es6-module-transpiler": "^0.2.1",
     "gulp-jsx": "^0.7.0",
     "gulp-notify": "^1.4.2",
-    "gulp-react": "^2.1.0",
+    "gulp-react": "*",
     "gulp-rename": "^1.2.0",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-uglify": "^1.0.2",
