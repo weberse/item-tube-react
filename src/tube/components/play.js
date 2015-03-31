@@ -11,13 +11,13 @@ var Play = React.createClass({
     getInitialState: function(){
 
         return {
-            playText: states[this.props.data.state]
+            playText: states[this.props.state]
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
         this.setState({
-            playText: states[nextProps.data.state]
+            playText: states[nextProps.state]
         });
     },
 
@@ -32,7 +32,7 @@ var Play = React.createClass({
 	},
 
 	_onClickPlay: function(){
-		TubeActions.play()
+		TubeActions.play(this.props.state)
 	}
 });
 

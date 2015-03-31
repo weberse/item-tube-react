@@ -2,8 +2,11 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var TubeActions = {
 
-  play: function() {
-  	console.log('play clicked');
+  play: function(action) {
+  	AppDispatcher.dispatch({
+      actionType: 'play',
+      state: action
+    });
   },
 };
 
