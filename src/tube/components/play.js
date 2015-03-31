@@ -4,6 +4,7 @@ var states = {
     stop: 'Stop'
 };
 var React = require('react');
+var TubeActions = require('../actions/TubeActions');
 
 var Play = React.createClass({
 
@@ -23,9 +24,15 @@ var Play = React.createClass({
 	render: function() {
 		return (
             <div>
-			    <a>{this.state.playText}</a>
+			    <a
+			    	onClick={this._onClickPlay}
+			    >{this.state.playText}</a>
             </div>
 		);
+	},
+
+	_onClickPlay: function(){
+		TubeActions.play()
 	}
 });
 
