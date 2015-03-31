@@ -1,3 +1,6 @@
+var Title = require('./components/title/title');
+var Play = require('./components/play');
+var React = require('react');
 
 var Tube = React.createClass( {
 
@@ -23,3 +26,5 @@ var Tube = React.createClass( {
       	);
   	}
 });
+
+module.exports = Tube;

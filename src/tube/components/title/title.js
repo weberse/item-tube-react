@@ -1,4 +1,4 @@
-
+var React = require('react');
 var converter = new Showdown.converter();
 
 var Title = React.createClass({
@@ -10,3 +10,5 @@ var Title = React.createClass({
 		)
 	}
 }); 
+
+module.exports = Title;

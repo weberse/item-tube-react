@@ -3,6 +3,7 @@ var states = {
     pending: 'Loading...',
     stop: 'Stop'
 };
+var React = require('react');
 
 var Play = React.createClass({
 
@@ -27,3 +28,5 @@ var Play = React.createClass({
 		);
 	}
 });
+
+module.exports = Play;
