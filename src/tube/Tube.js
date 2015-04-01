@@ -1,9 +1,15 @@
 var Title = require('./components/title/title');
 var Play = require('./components/play');
+var TubeVideo = require('./components/video');
 var React = require('react');
 var TubeStore = require('./store/TubeStore');
 
 function getTubeState() {
+  TubeStore.getAll();
+  $(function() {
+    player = TubeVideo.test();
+    // player.api('play');
+  });
   return {
     state: TubeStore.getState(),
     current: TubeStore.getCurrent()

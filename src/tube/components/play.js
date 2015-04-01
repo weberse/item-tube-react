@@ -32,6 +32,7 @@ var Play = React.createClass({
 	},
 
 	_onClickPlay: function(){
+        player.api('play');
 		TubeActions.play(this.props.state)
 	}
 });

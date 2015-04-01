@@ -15,6 +15,15 @@ function changeState() {
 
 var TubeStore = assign({}, EventEmitter.prototype, {
 
+  getAll: function() {
+    // var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J"
+    // var jsPromise = Promise.resolve($.ajax(url));
+    // jsPromise.then(function(response) {
+    //   console.log(response);
+    //   return response;
+    // });
+  },
+
   getState: function() {
     return _state;
   },

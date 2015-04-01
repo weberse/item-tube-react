@@ -5,10 +5,10 @@ var Title = React.createClass({
 	render: function (){
 		return (
 			<div>
-				{converter.makeHtml('***title')}
+				<div dangerouslySetInnerHTML={{__html: converter.makeHtml('###title')}} />
 			</div>
 		)
 	}
-}); 
+});
 
 module.exports = Title;
