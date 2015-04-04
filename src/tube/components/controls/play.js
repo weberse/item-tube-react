@@ -32,7 +32,6 @@ var Play = React.createClass({
 	},
 
 	_onClickPlay: function(){
-        console.log(this.props.state);
 		TubeActions.changeState(this.props.state)
 	}
 });

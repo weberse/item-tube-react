@@ -1,6 +1,7 @@
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var TubeVideo = require('../service/video');
+var MediaAudio = require('../../media/audio/audio');
 var EventEmitter = require('events').EventEmitter;
 // var TodoConstants = require('../constants/TodoConstants');
 var assign = require('object-assign');
@@ -17,6 +18,9 @@ function changeState(state) {
 $(function(){
   video = new TubeVideo();
   video.init();
+
+  audio = new MediaAudio();
+  audio.init();
 });
 
 var TubeStore = assign({}, EventEmitter.prototype, {
@@ -67,11 +71,13 @@ AppDispatcher.register(function(action) {
       changeState('stop');
       TubeStore.emitChange();
       video.play();
+      audio.play();
       break;
     case 'stop':
       state = 'play';
       changeState('play');
       video.stop();
+      audio.stop();
       TubeStore.emitChange();
     default:
       // no op

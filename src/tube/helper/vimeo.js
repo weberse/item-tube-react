@@ -13,7 +13,6 @@ TubeVimeoVideo.prototype.init = function () {
 
 	// When the player is ready, add listeners for pause, finish, and playProgress
 	player.addEvent('ready', function() {
-	    console.log('ready');
 	    
 	    player.addEvent('play', onPlay);
 	    player.addEvent('pause', onPause);
