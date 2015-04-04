@@ -4,7 +4,7 @@ var states = {
     stop: 'Stop'
 };
 var React = require('react');
-var TubeActions = require('../actions/TubeActions');
+var TubeActions = require('../../actions/TubeActions');
 
 var Play = React.createClass({
 
@@ -32,8 +32,8 @@ var Play = React.createClass({
 	},
 
 	_onClickPlay: function(){
-        player.api('play');
-		TubeActions.play(this.props.state)
+        console.log(this.props.state);
+		TubeActions.changeState(this.props.state)
 	}
 });
 

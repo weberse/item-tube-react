@@ -1,21 +1,18 @@
 var Title = require('./components/title/title');
-var Play = require('./components/play');
-var TubeVideo = require('./components/video');
+var Play = require('./components/controls/play');
+var TubeVideo = require('./service/video');
 var React = require('react');
 var TubeStore = require('./store/TubeStore');
+var player;
+
 
 function getTubeState() {
   TubeStore.getAll();
-  $(function() {
-    player = TubeVideo.test();
-    // player.api('play');
-  });
   return {
     state: TubeStore.getState(),
     current: TubeStore.getCurrent()
   };
 }
-
 
 var Tube = React.createClass( {
 
@@ -31,31 +28,19 @@ var Tube = React.createClass( {
     TubeStore.removeChangeListener(this._onChange);
   },
 
-    // getInitialState: function() {
-    //     return {data: {
-    //         state: 'pending'
-    //     }};
-    // },
+	render: function() {
+    	return (
+    		<div>
+    			<p>Tube</p>
+    			<Title />
+			    <Play state={this.state.state} />
+    		</div>
+    	);
+	},
 
-    // componentDidMount: function() {
-    //     this.setState({data: {
-    //         state: 'stop'
-    //     }});
-    // },
-
-  	render: function() {
-      	return (
-      		<div>
-      			<p>Tube</p>
-      			<Title />
-      			<Play state={this.state.state} />
-      		</div>
-      	);
-  	},
-
-    _onChange: function(){
-      this.setState(getTubeState());
-    }
+  _onChange: function(){
+    this.setState(getTubeState());
+  }
 });
 
 module.exports = Tube;

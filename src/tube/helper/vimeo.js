@@ -1,6 +1,14 @@
-var TubeVideo = {
+var TubeVideo = require('../service/video');
 
-	test: function(){
+
+
+
+var TubeVimeoVideo = function(){
+
+};
+
+
+TubeVimeoVideo.prototype.init = function () {
 		
 			console.log('vimeo init');
 			var iframe = $('#player1')[0],
@@ -9,8 +17,9 @@ var TubeVideo = {
 
 			// When the player is ready, add listeners for pause, finish, and playProgress
 			player.addEvent('ready', function() {
-			    status.text('ready');
+			    console.log('ready');
 			    
+			    player.addEvent('play', onPlay);
 			    player.addEvent('pause', onPause);
 			    player.addEvent('finish', onFinish);
 			    player.addEvent('playProgress', onPlayProgress);
@@ -21,21 +30,25 @@ var TubeVideo = {
 			    player.api($(this).text().toLowerCase());
 			});
 
+			function onPlay(id) {
+			    console.log('play');
+			    // TubeVideo.changeState('play');
+			}
+
 			function onPause(id) {
-			    status.text('paused');
+			    console.log('paused');
+			    // TubeVideo.changeState('stop');
 			}
 
 			function onFinish(id) {
-			    status.text('finished');
+			    console.log('finished');
 			}
 
 			function onPlayProgress(data, id) {
-			    status.text(data.seconds + 's played');
+			    // console.log(data.seconds + 's played');
 			}
-
 			return player;
 		// });
-	}
 };
 
-module.exports = TubeVideo;
+module.exports = TubeVimeoVideo;
