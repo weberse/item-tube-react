@@ -3,6 +3,10 @@ var TubeVideo = require('../service/video');
 
 var TubeVimeoVideo = function(){
 
+	function updateFrameElement(id) {
+		
+	}
+
 };
 
 TubeVimeoVideo.prototype.init = function () {

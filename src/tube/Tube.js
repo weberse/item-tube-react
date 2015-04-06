@@ -3,6 +3,7 @@ var Play = require('./components/controls/play');
 var TubeVideo = require('./service/video');
 var React = require('react');
 var TubeStore = require('./store/TubeStore');
+var Media = require('../media/media');
 var player;
 
 
@@ -34,7 +35,8 @@ var Tube = React.createClass( {
     			<p>Tube</p>
     			<Title />
 			    <Play state={this.state.state} />
-    		</div>
+          <Media mediaModel={this.state.current} />
+        </div>
     	);
 	},
 
