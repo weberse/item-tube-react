@@ -8,11 +8,17 @@ var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 
-var _state = 'play';
-var _current = 'current';
+var _state = 'pending';
+var _current = '';
+var _allVideos = [];
 
 function changeState(state) {
 	_state = state;
+}
+
+function changeNextVideo() {
+    _current = _allVideos[1];
+    console.log(_current);
 }
 
 $(function(){
@@ -26,16 +32,21 @@ $(function(){
 var TubeStore = assign({}, EventEmitter.prototype, {
 
   getAll: function() {
-    // var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J"
-    // var jsPromise = Promise.resolve($.ajax(url));
-    // jsPromise.then(function(response) {
-    //   console.log(response);
-    //   return response;
-    // });
+    var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J";
+    var jsPromise = Promise.resolve($.ajax(url));
+    jsPromise.then(function(response) {
+        _current = response[0];
+        _allVideos = response;
+       return response;
+    });
   },
 
   getState: function() {
     return _state;
+  },
+
+  getNextVideo: function(){
+
   },
 
   getCurrent: function() {
@@ -66,19 +77,24 @@ AppDispatcher.register(function(action) {
   var state;
 
   switch(action.actionType) {
-    case 'play':
-      state = 'stop';
-      changeState('stop');
-      TubeStore.emitChange();
-      video.play();
-      audio.play();
-      break;
-    case 'stop':
-      state = 'play';
-      changeState('play');
-      video.stop();
-      audio.stop();
-      TubeStore.emitChange();
+      case 'play':
+          state = 'stop';
+          changeState('stop');
+          TubeStore.emitChange();
+          video.play();
+          audio.play();
+          break;
+      case 'stop':
+          state = 'play';
+          changeState('play');
+          video.stop();
+          audio.stop();
+          TubeStore.emitChange();
+      case 'next_video':
+          changeNextVideo();
+          state = 'play';
+          changeState('play');
+          TubeStore.emitChange();
     default:
       // no op
   }
