@@ -1,14 +1,15 @@
 var Title = require('./components/title/title');
 var Play = require('./components/controls/play');
-var TubeVideo = require('./service/video');
+// var TubeVideo = require('./service/video');
 var React = require('react');
 var TubeStore = require('./store/TubeStore');
 var Media = require('../media/media');
 var player;
 
 
+TubeStore.getAll();
+
 function getTubeState() {
-  TubeStore.getAll();
   return {
     state: TubeStore.getState(),
     current: TubeStore.getCurrent()
@@ -35,9 +36,9 @@ var Tube = React.createClass( {
     			<p>Tube</p>
     			<Title />
 			    <Play state={this.state.state} />
-          <Media mediaModel={this.state.current} />
+          <Media video={this.state.current} />
         </div>
-    	);
+      );
 	},
 
   _onChange: function(){

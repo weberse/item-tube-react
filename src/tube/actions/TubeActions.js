@@ -4,16 +4,14 @@ var TubeActions = {
 
     changeState: function(action) {
         AppDispatcher.dispatch({
-            actionType: action,
+            actionType: 'change_state',
             state: action
         });
     },
-
-    nextVideo: function() {
+    videoLoaded: function() {
         AppDispatcher.dispatch({
-            actionType: 'stop',
-            state: 'play'
-        });
+            actionType: 'video_loaded'
+        });      
     }
 };
 

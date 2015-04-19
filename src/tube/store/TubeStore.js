@@ -3,30 +3,25 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var TubeVideo = require('../service/video');
 var MediaAudio = require('../../media/audio/audio');
 var EventEmitter = require('events').EventEmitter;
-// var TodoConstants = require('../constants/TodoConstants');
+var TubeActions = require('../actions/TubeActions');
 var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 
-var _state = 'pending';
-var _current = '';
+var _state = 'stop';
+var _current = {
+  mediaType: ''
+};
 var _allVideos = [];
 
 function changeState(state) {
 	_state = state;
 }
 
-function changeNextVideo() {
-    _current = _allVideos[1];
-    console.log(_current);
-}
 
 $(function(){
   video = new TubeVideo();
-  video.init();
-
-  audio = new MediaAudio();
-  audio.init();
+  // audio = new MediaAudio();
 });
 
 var TubeStore = assign({}, EventEmitter.prototype, {
@@ -35,8 +30,10 @@ var TubeStore = assign({}, EventEmitter.prototype, {
     var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J";
     var jsPromise = Promise.resolve($.ajax(url));
     jsPromise.then(function(response) {
-        _current = response[0];
         _allVideos = response;
+        _current = response[0];
+        // video.init();
+        TubeActions.videoLoaded();
        return response;
     });
   },
@@ -72,32 +69,35 @@ var TubeStore = assign({}, EventEmitter.prototype, {
   }
 });
 
+function changeMediaState(state) {
+    switch (state) {
+      case 'stop' :
+        video.play();
+        _state = 'play';
+        return 'play';
+      case 'play' :
+        video.stop();
+        _state = 'stop'
+    }
+}
+
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
-  var state;
+  var current;
 
   switch(action.actionType) {
-      case 'play':
-          state = 'stop';
-          changeState('stop');
+      case 'change_state':
+          changeMediaState(action.state);
           TubeStore.emitChange();
-          video.play();
-          audio.play();
           break;
-      case 'stop':
-          state = 'play';
-          changeState('play');
-          video.stop();
-          audio.stop();
+      case 'video_loaded':
           TubeStore.emitChange();
-      case 'next_video':
-          changeNextVideo();
-          state = 'play';
-          changeState('play');
-          TubeStore.emitChange();
+          video.init();
+          break;
     default:
-      // no op
   }
+
+
 });
 
 module.exports = TubeStore;

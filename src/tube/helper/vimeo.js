@@ -1,11 +1,17 @@
-var TubeVideo = require('../service/video');
-
 var TubeVimeoVideo = function(){
-
+	var player;
 };
 
-TubeVimeoVideo.prototype.init = function () {
+TubeVimeoVideo.prototype.play = function () {
+	this.player.api('play');
+}
 
+TubeVimeoVideo.prototype.stop = function () {
+	this.player.api('pause');
+}
+
+TubeVimeoVideo.prototype.init = function () {
+	console.log('init video player');
 	var iframe = $('#player1')[0],
 	    player = $f(iframe),
 	    status = $('.status');
@@ -17,6 +23,8 @@ TubeVimeoVideo.prototype.init = function () {
 	    player.addEvent('finish', onFinish);
 	    player.addEvent('playProgress', onPlayProgress);
 	});
+
+	this.player = player;
 
 	// Call the API when a button is pressed
 	$('button').bind('click', function() {
