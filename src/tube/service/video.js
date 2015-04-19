@@ -14,8 +14,12 @@ TubeVideo.prototype.stop = function () {
 	this.vimeo.stop();
 };
 
-TubeVideo.prototype.init = function () {	
-	this.video = this.vimeo.init();
+TubeVideo.prototype.destroy = function (state) {	
+	this.video = this.vimeo.destroy();
+};
+
+TubeVideo.prototype.init = function (state) {	
+	this.video = this.vimeo.init(state);
 };
 
 module.exports = TubeVideo;

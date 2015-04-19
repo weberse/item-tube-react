@@ -12,6 +12,11 @@ var TubeActions = {
         AppDispatcher.dispatch({
             actionType: 'video_loaded'
         });      
+    },
+    nextVideo: function() {
+        AppDispatcher.dispatch({
+            actionType: 'video_next'
+        });
     }
 };
 

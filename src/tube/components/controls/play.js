@@ -26,7 +26,10 @@ var Play = React.createClass({
             <div>
 			    <a
 			    	onClick={this._onClickPlay}
-			    >{this.state.playText}</a>
+			    >{this.state.playText}</a> | 
+                <a
+                    onClick={this._onClickNextVideo}
+                >next &#8594;</a>
             </div>
 		);
 	},

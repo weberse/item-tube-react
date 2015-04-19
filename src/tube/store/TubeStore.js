@@ -9,9 +9,7 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 
 var _state = 'stop';
-var _current = {
-  mediaType: ''
-};
+var _current = {  };
 var _allVideos = [];
 
 function changeState(state) {
@@ -42,8 +40,8 @@ var TubeStore = assign({}, EventEmitter.prototype, {
     return _state;
   },
 
-  getNextVideo: function(){
-
+  setNextVideo: function(){
+    _current = _allVideos[Math.floor(Math.random()*_allVideos.length)];
   },
 
   getCurrent: function() {
@@ -92,7 +90,13 @@ AppDispatcher.register(function(action) {
           break;
       case 'video_loaded':
           TubeStore.emitChange();
-          video.init();
+          video.init(_state);
+          break;
+      case 'video_next':
+          video.destroy();
+          TubeStore.setNextVideo();
+          TubeStore.emitChange();
+          video.init(_state);
           break;
     default:
   }
