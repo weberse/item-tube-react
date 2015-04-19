@@ -1,7 +1,7 @@
 var states = {
-    play: 'Play',
+    play: 'Stop',
     pending: 'Loading...',
-    stop: 'Stop'
+    stop: 'Play'
 };
 var React = require('react');
 var TubeActions = require('../../actions/TubeActions');
@@ -32,8 +32,11 @@ var Play = React.createClass({
 	},
 
 	_onClickPlay: function(){
-        console.log(this.props.state);
 		TubeActions.changeState(this.props.state)
+	},
+
+    _onClickNextVideo: function(){
+		TubeActions.nextVideo();
 	}
 });
 

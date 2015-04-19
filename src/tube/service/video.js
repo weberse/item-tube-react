@@ -7,11 +7,11 @@ var TubeVideo = function(){
 };
 
 TubeVideo.prototype.play = function () {
-	this.video.api('play');
+	this.vimeo.play();
 };
 
 TubeVideo.prototype.stop = function () {
-	this.video.api('pause');
+	this.vimeo.stop();
 };
 
 TubeVideo.prototype.init = function () {	
