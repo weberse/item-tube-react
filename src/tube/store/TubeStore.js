@@ -53,9 +53,8 @@ var TubeStore = assign({}, EventEmitter.prototype, {
               break;
           }
         }
-        // _allAudio = response;
         TubeActions.mediaLoaded();
-       return response;
+        // return response;
     });
   },
 
