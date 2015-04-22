@@ -12,7 +12,8 @@ TubeStore.getAll();
 function getTubeState() {
   return {
     state: TubeStore.getState(),
-    current: TubeStore.getCurrent()
+    currentBckg: TubeStore.getCurrentBckg(),
+    currentAudio: TubeStore.getCurrentAudio()
   };
 }
 
@@ -33,10 +34,9 @@ var Tube = React.createClass( {
 	render: function() {
     	return (
     		<div>
-    			<p>Tube</p>
     			<Title />
 			    <Play state={this.state.state} />
-          <Media video={this.state.current} />
+          <Media video={this.state.currentBckg} audio={this.state.currentAudio} />
         </div>
       );
 	},

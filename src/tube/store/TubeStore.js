@@ -13,6 +13,10 @@ var _current = {
   mediaType: ''
 };
 var _allVideos = [];
+var _allAudio = [];
+
+var _currentAudio;
+var _currentBckg;
 
 function changeState(state) {
 	_state = state;
@@ -21,19 +25,21 @@ function changeState(state) {
 
 $(function(){
   video = new TubeVideo();
-  // audio = new MediaAudio();
+  audio = new MediaAudio();
 });
 
 var TubeStore = assign({}, EventEmitter.prototype, {
 
   getAll: function() {
-    var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J";
+
+    var query = '&q={"type": "audio"}';
+    // query = '';
+
+    var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J"+query;
     var jsPromise = Promise.resolve($.ajax(url));
     jsPromise.then(function(response) {
-        _allVideos = response;
-        _current = response[0];
-        // video.init();
-        TubeActions.videoLoaded();
+        _allAudio = response;
+        TubeActions.mediaLoaded();
        return response;
     });
   },
@@ -42,12 +48,20 @@ var TubeStore = assign({}, EventEmitter.prototype, {
     return _state;
   },
 
-  getNextVideo: function(){
+  getNextVideo: function() {
 
   },
 
-  getCurrent: function() {
-    return _current;
+  getCurrentBckg: function() {
+    return _currentBckg;
+  },
+
+  getNextAudio: function() {
+    return _currentAudio = _allAudio[Math.floor(Math.random()*_allAudio.length)];
+  },
+
+  getCurrentAudio: function() {
+    return _currentAudio;
   },
 
   emitChange: function() {
@@ -72,13 +86,32 @@ var TubeStore = assign({}, EventEmitter.prototype, {
 function changeMediaState(state) {
     switch (state) {
       case 'stop' :
-        video.play();
-        _state = 'play';
+        playMedia();
         return 'play';
       case 'play' :
-        video.stop();
-        _state = 'stop'
+        stopMedia();
+        return 'stop';
     }
+}
+
+function playMedia() {
+  // video.play();
+  audio.play();
+  _state = 'play';
+}
+
+function stopMedia() {
+  // video.stop();
+  audio.stop();
+  _state = 'stop';
+}
+
+function nextAudio(){
+  audio.init(TubeStore.getNextAudio(), _state);
+}
+
+function initMedia() {
+    audio.init(TubeStore.getNextAudio());
 }
 
 // Register callback to handle all updates
@@ -90,9 +123,13 @@ AppDispatcher.register(function(action) {
           changeMediaState(action.state);
           TubeStore.emitChange();
           break;
-      case 'video_loaded':
+      case 'media_loaded':
+          initMedia();
           TubeStore.emitChange();
-          video.init();
+          break;
+      case 'next_audio':
+          nextAudio();
+          TubeStore.emitChange();
           break;
     default:
   }

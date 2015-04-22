@@ -5,7 +5,7 @@ var Title = React.createClass({
 	render: function (){
 		return (
 			<div>
-				<div dangerouslySetInnerHTML={{__html: converter.makeHtml('#')}} />
+				<div dangerouslySetInnerHTML={{__html: converter.makeHtml('')}} />
 			</div>
 		)
 	}

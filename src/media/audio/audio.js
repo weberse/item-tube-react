@@ -9,11 +9,11 @@ MediaAudio.prototype.play = function () {
 };
 
 MediaAudio.prototype.stop = function () {
-	this.sc.stop();
+	this.sc.pause();
 };
 
-MediaAudio.prototype.init = function () {	
-
+MediaAudio.prototype.init = function (media, state) {	
+	this.sc.init(media, state == 'play');
 };
 
 module.exports = MediaAudio;
