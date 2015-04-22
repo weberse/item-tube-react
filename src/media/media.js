@@ -4,27 +4,35 @@ var Media = React.createClass({
 
 	getInitialState: function(){
         return {
-            mediaType: this.props.video.mediaType,
-            mediaId: this.props.video.mediaId
+            image: this.props.image,
+            audio: this.props.audio,
+            video: false
         };
     },
 
     componentWillReceiveProps: function(props) {
         this.setState({
-            mediaType: props.video.mediaType,
-            mediaId: props.video.mediaId
+            image: props.image,
+            audio: props.audio,
+            video: false
         });
     },
     
 	render: function () {
         var vimeoFrame = '';
-        if(this.state.mediaId) {
+        var imageSrc = '';
+        if(this.state.video) {
             vimeoFrame = '<iframe id="player1" src="https://player.vimeo.com/video/' + this.state.mediaId + '?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
         }
-
+        if(this.state.image) {
+            imageSrc = this.state.image.mediaUrl;
+        }
 		return (
-             <div dangerouslySetInnerHTML={{__html: vimeoFrame}} />
-		)
+            <div>
+                <div dangerouslySetInnerHTML={{__html: vimeoFrame}} />
+                <img src={imageSrc} />
+            </div>
+        )
 	}
 });
 
