@@ -14,8 +14,10 @@ var _current = {
 };
 var _allVideos = [];
 var _allAudio = [];
+var _allImages = [];
 
 var _currentAudio;
+var _currentImage;
 var _currentBckg;
 
 function changeState(state) {
@@ -32,13 +34,26 @@ var TubeStore = assign({}, EventEmitter.prototype, {
 
   getAll: function() {
 
-    var query = '&q={"type": "audio"}';
-    // query = '';
+    // var query = '&q={"type": "audio"}';
+    var query = '';
 
     var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J"+query;
     var jsPromise = Promise.resolve($.ajax(url));
     jsPromise.then(function(response) {
-        _allAudio = response;
+        for (var i=0; i<response.length; i++) {
+          switch(response[i].type){
+            case 'video':
+              _allVideos.push(response[i]);
+              break;
+            case 'image':
+              _allImages.push(response[i]);
+              break;
+            case 'audio':
+              _allAudio.push(response[i]);
+              break;
+          }
+        }
+        // _allAudio = response;
         TubeActions.mediaLoaded();
        return response;
     });
@@ -63,6 +78,15 @@ var TubeStore = assign({}, EventEmitter.prototype, {
   getCurrentAudio: function() {
     return _currentAudio;
   },
+
+  getNextImage: function() {
+    return _currentImage = _allImages[Math.floor(Math.random()*_allImages.length)];
+  },
+
+  getCurrentImage: function() {
+    return _currentImage;
+  },
+
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -110,8 +134,13 @@ function nextAudio(){
   audio.init(TubeStore.getNextAudio(), _state);
 }
 
+function nextVideo(){
+  TubeStore.getNextImage();
+}
+
 function initMedia() {
     audio.init(TubeStore.getNextAudio());
+    TubeStore.getNextImage();
 }
 
 // Register callback to handle all updates
@@ -129,6 +158,10 @@ AppDispatcher.register(function(action) {
           break;
       case 'next_audio':
           nextAudio();
+          TubeStore.emitChange();
+          break;
+      case 'next_video':
+          nextVideo();
           TubeStore.emitChange();
           break;
     default:
