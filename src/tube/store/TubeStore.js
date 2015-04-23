@@ -29,8 +29,8 @@ var TubeStore = assign({}, EventEmitter.prototype, {
     var jsPromise = Promise.resolve($.ajax(url));
     jsPromise.then(function(response) {
         _allVideos = response;
-        _current = response[0];
-        // video.init();
+        _current = response[5];
+        console.log(response);
         TubeActions.videoLoaded();
        return response;
     });
@@ -41,7 +41,8 @@ var TubeStore = assign({}, EventEmitter.prototype, {
   },
 
   setNextVideo: function(){
-    _current = _allVideos[Math.floor(Math.random()*_allVideos.length)];
+    //_current = _allVideos[Math.floor(Math.random()*_allVideos.length)];
+    _current = _allVideos[6];
   },
 
   getCurrent: function() {
@@ -93,7 +94,6 @@ AppDispatcher.register(function(action) {
           video.init(_state);
           break;
       case 'video_next':
-          video.destroy();
           TubeStore.setNextVideo();
           TubeStore.emitChange();
           video.init(_state);
