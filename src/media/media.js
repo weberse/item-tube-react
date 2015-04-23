@@ -6,7 +6,7 @@ var Media = React.createClass({
         return {
             image: this.props.image,
             audio: this.props.audio,
-            video: false
+            video: this.props.video
         };
     },
 
@@ -14,7 +14,7 @@ var Media = React.createClass({
         this.setState({
             image: props.image,
             audio: props.audio,
-            video: false
+            video: props.video
         });
     },
     

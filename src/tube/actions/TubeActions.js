@@ -22,11 +22,6 @@ var TubeActions = {
         AppDispatcher.dispatch({
             actionType: 'next_video'
         });      
-    },
-    nextVideo: function() {
-        AppDispatcher.dispatch({
-            actionType: 'video_next'
-        });
     }
 };
 

@@ -17,6 +17,7 @@ var _allImages = [];
 var _currentAudio;
 var _currentImage;
 var _currentBckg;
+var _currentVideo;
 
 function changeState(state) {
 	_state = state;
@@ -41,7 +42,8 @@ var TubeStore = assign({}, EventEmitter.prototype, {
         for (var i=0; i<response.length; i++) {
           switch(response[i].type){
             case 'video':
-              _allVideos.push(response[i]);
+              if(response[i].mediaType == 'yt')
+                _allVideos.push(response[i]);
               break;
             case 'image':
               _allImages.push(response[i]);
@@ -52,7 +54,6 @@ var TubeStore = assign({}, EventEmitter.prototype, {
           }
         }
         TubeActions.mediaLoaded();
-        // return response;
     });
   },
 
@@ -61,7 +62,11 @@ var TubeStore = assign({}, EventEmitter.prototype, {
   },
 
   getNextVideo: function() {
+    return _currentVideo = _allVideos[Math.floor(Math.random()*_allVideos.length)];
+  },
 
+  getCurrentVideo: function() {
+    return _currentVideo;
   },
 
   getCurrentBckg: function() {
@@ -132,7 +137,8 @@ function nextAudio(){
 }
 
 function nextVideo(){
-  TubeStore.getNextImage();
+  // TubeStore.getNextImage();
+  TubeStore.getNextVideo();
 }
 
 function initMedia() {
