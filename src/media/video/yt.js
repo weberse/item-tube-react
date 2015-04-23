@@ -1,6 +1,5 @@
 
 
-
 var TubeYTVideo = function(){
     var player;
 };
@@ -10,14 +9,10 @@ TubeYTVideo.prototype.play = function () {
 };
 
 TubeYTVideo.prototype.stop = function () {
-    this.player.api('pause');
+
 };
 
-TubeYTVideo.prototype.init = function () {
-    var player = document.getElementById("my-video");
-
-
-    this.player = player;
+TubeYTVideo.prototype.init = function (current) {
 
 };
 

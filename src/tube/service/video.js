@@ -12,7 +12,10 @@ var TubeVideo = function(){
 
 TubeVideo.prototype.play = function () {
 	//this.vimeo.play();
-	this.yt.play();
+	if(this.yt.player)
+		this.yt.play();
+	else
+		this.init();
 };
 
 TubeVideo.prototype.stop = function () {
@@ -23,9 +26,9 @@ TubeVideo.prototype.destroy = function (state) {
 	//this.video = this.vimeo.destroy();
 };
 
-TubeVideo.prototype.init = function (state) {
+TubeVideo.prototype.init = function (current) {
 	//this.video = this.vimeo.init(state);
-	this.yt.init(state);
+	this.yt.init(current);
 };
 
 module.exports = TubeVideo;

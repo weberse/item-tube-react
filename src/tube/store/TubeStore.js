@@ -24,10 +24,11 @@ function changeState(state) {
 }
 
 
-$(function(){
   video = new TubeVideo();
+$(function(){
   audio = new MediaAudio();
 });
+
 
 var TubeStore = assign({}, EventEmitter.prototype, {
 
@@ -121,7 +122,7 @@ function changeMediaState(state) {
 }
 
 function playMedia() {
-  // video.play();
+  video.play();
   audio.play();
   _state = 'play';
 }
@@ -138,12 +139,14 @@ function nextAudio(){
 
 function nextVideo(){
   // TubeStore.getNextImage();
-  TubeStore.getNextVideo();
+  video.init( TubeStore.getNextVideo());
 }
 
 function initMedia() {
     audio.init(TubeStore.getNextAudio());
+    // video.init();
     TubeStore.getNextImage();
+    TubeStore.getNextVideo();
 }
 
 // Register callback to handle all updates
