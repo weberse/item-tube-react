@@ -1,44 +1,35 @@
 
 var MediaAudioSC = function(){
 	var sound = false;
+	var isPlay = false;
 
-	this.getSound = function(){
-        return sound;
-    };
-   
     this.setSound = function(s){
         sound = s;
+        if(isPlay) {
+        	sound.play();
+        }
     };
 
     SC.initialize({
 		client_id: '5409ed67988608ebd6ab1ab4264243f8'
 	});
 
-	SC.stream("/tracks/293", this.setSound);
-
 	this.play = function(){
 		sound.play();
 	}
 
-	this.stop = function(){
-		sound.stop();
+	this.pause = function(){
+		sound.pause();
 	}
-};
 
-
-
-MediaAudioSC.prototype.play = function () {
-	console.log(this.sound);
-	if (this.getSound()) {
-		console.log('play audio');
-		this.sound.play();
-	}
-};
-
-MediaAudioSC.prototype.stop = function () {
-	if (this.getSound()) {
-	console.log('stop audio');
-		this.sound.stop();
+	this.init = function(media, play){
+		isPlay = play;
+		if(media.mediaId) {
+			if(sound) {
+				sound.stop();
+			}
+			SC.stream("/tracks/"+media.mediaId, this.setSound);
+		}
 	}
 };
 

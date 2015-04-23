@@ -8,9 +8,19 @@ var TubeActions = {
             state: action
         });
     },
-    videoLoaded: function() {
+    mediaLoaded: function() {
         AppDispatcher.dispatch({
-            actionType: 'video_loaded'
+            actionType: 'media_loaded'
+        });      
+    },
+    nextAudio: function() {
+        AppDispatcher.dispatch({
+            actionType: 'next_audio'
+        });      
+    },
+    nextVideo: function() {
+        AppDispatcher.dispatch({
+            actionType: 'next_video'
         });      
     },
     nextVideo: function() {

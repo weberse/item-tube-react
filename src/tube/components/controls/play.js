@@ -26,10 +26,13 @@ var Play = React.createClass({
             <div>
 			    <a
 			    	onClick={this._onClickPlay}
-			    >{this.state.playText}</a> | 
+			    >[{this.state.playText}]</a>
+                <a
+                    onClick={this._onClickNextAudio}
+                >[next audo]</a>
                 <a
                     onClick={this._onClickNextVideo}
-                >next &#8594;</a>
+                >[next background]</a>
             </div>
 		);
 	},
@@ -37,6 +40,10 @@ var Play = React.createClass({
 	_onClickPlay: function(){
 		TubeActions.changeState(this.props.state)
 	},
+
+    _onClickNextAudio: function(){
+        TubeActions.nextAudio();
+    },
 
     _onClickNextVideo: function(){
 		TubeActions.nextVideo();
