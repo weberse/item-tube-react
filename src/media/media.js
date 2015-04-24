@@ -28,6 +28,7 @@ var Media = React.createClass({
                     break;
                 case 'yt':
                     videoFrame = '<iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/v/' + this.state.video.mediaId + '?controls=0&enablejsapi=1&modestbranding=1&rel=0&showinfo=0&autohide=1&autoplay=1&disablekb=1&color=white&iv_load_policy=3" frameborder="0" allowfullscreen>';
+                    videoFrame = '<div id="ytplayer"></div>'
                     break;
                 default:
                     break;
