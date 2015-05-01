@@ -30,7 +30,7 @@ var Media = React.createClass({
 		return (
             <div>
                 <div dangerouslySetInnerHTML={{__html: vimeoFrame}} />
-                <img src={imageSrc} />
+                <div id='bg'><img src={imageSrc} /></div>
             </div>
         )
 	}

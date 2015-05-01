@@ -23,16 +23,16 @@ var Play = React.createClass({
 
 	render: function() {
 		return (
-            <div>
+            <div id='controls'>
 			    <a
 			    	onClick={this._onClickPlay}
 			    >[{this.state.playText}]</a>
                 <a
                     onClick={this._onClickNextAudio}
-                >[next audo]</a>
+                >[change audo]</a>
                 <a
                     onClick={this._onClickNextVideo}
-                >[next background]</a>
+                >[change background]</a>
             </div>
 		);
 	},
