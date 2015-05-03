@@ -7,6 +7,17 @@ var AdminActions = {
             actionType: 'parse_url',
             url: url
         });      
+    },
+    urlError: function() {
+        AppDispatcher.dispatch({
+            actionType: 'error_url'
+        });      
+    },
+    mediaInfo: function(info) {
+    	AppDispatcher.dispatch({
+            actionType: 'media_info',
+            info: info
+        });	
     }
 };
 

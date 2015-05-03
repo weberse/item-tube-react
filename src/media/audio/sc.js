@@ -2,6 +2,7 @@
 var MediaAudioSC = function(){
 	var sound = false;
 	var isPlay = false;
+	var clientId = '5409ed67988608ebd6ab1ab4264243f8';
 
     this.setSound = function(s){
         sound = s;
@@ -11,7 +12,7 @@ var MediaAudioSC = function(){
     };
 
     SC.initialize({
-		client_id: '5409ed67988608ebd6ab1ab4264243f8'
+		client_id: clientId
 	});
 
 	this.play = function(){
@@ -30,6 +31,18 @@ var MediaAudioSC = function(){
 			}
 			SC.stream("/tracks/"+media.mediaId, this.setSound);
 		}
+	}
+
+	this.resolve = function(url, callback) {
+		SC.get('/resolve', { url: url }, function(track) {
+			// console.log(track);
+			callback(track);
+		  	// SC.get('/tracks/' + track.id + '/comments', function(comments) {
+		   //  	for (var i = 0; i < comments.length; i++) {
+		   //    		console.log('Someone said: ' + comments[i].body);
+		   //  	}
+		  	// });
+		});
 	}
 };
 

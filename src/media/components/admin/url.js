@@ -18,6 +18,7 @@ var UrlComponent = React.createClass({
             <div>
             	<input
                     type='text'
+                    size='70'
                     placeholder='media url' 
                     ref='mediaUrl'
                     onBlur={this._handleBlur}

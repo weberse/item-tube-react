@@ -3,8 +3,11 @@ var AppDispatcher = require('../tube/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var TubeActions = require('./actions/AdminActions');
 var assign = require('object-assign');
+var UrlParser = require('./service/UrlParser');
 
 var CHANGE_EVENT = 'change';
+
+var mediaInfo = {};
 
 var MediaStore = assign({}, EventEmitter.prototype, {
 
@@ -47,7 +50,14 @@ AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
       case 'parse_url':
-      	console.log(action.url);
+      	UrlParser.parse(action.url);
+        break;
+      case 'error_url':
+      	console.log('url error');
+        break;
+      case 'media_info':
+      	mediaInfo = action.info;
+      	MediaStore.emitChange();
         break;
     default:
   }
