@@ -19,8 +19,25 @@ var MediaStore = assign({}, EventEmitter.prototype, {
     var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J"+query;
     var jsPromise = Promise.resolve($.ajax(url));
     jsPromise.then(function(response) {
-
+        // TubeActions.mediaLoaded();
     });
+  },
+
+  addMedia: function(data) {
+
+    var url = "https://api.mongolab.com/api/1/databases/test/collections/media?apiKey=iwcA3TD9hYAOch1uXms2ffq6D3jPPq_J";
+    var jsPromise = Promise.resolve($.ajax( { url: url,
+        data: JSON.stringify( data ),
+        type: "POST",
+        contentType: "application/json" } 
+      ));
+    jsPromise.then(function(response) {
+        TubeActions.mediaAdded();
+    });
+  },
+
+  getMediaInfo: function() {
+    return mediaInfo;
   },
 
   emitChange: function() {
@@ -58,6 +75,9 @@ AppDispatcher.register(function(action) {
       case 'media_info':
       	mediaInfo = action.info;
       	MediaStore.emitChange();
+        break;
+      case 'add_media':
+        MediaStore.addMedia(action.data)
         break;
     default:
   }

@@ -35,13 +35,7 @@ var MediaAudioSC = function(){
 
 	this.resolve = function(url, callback) {
 		SC.get('/resolve', { url: url }, function(track) {
-			// console.log(track);
 			callback(track);
-		  	// SC.get('/tracks/' + track.id + '/comments', function(comments) {
-		   //  	for (var i = 0; i < comments.length; i++) {
-		   //    		console.log('Someone said: ' + comments[i].body);
-		   //  	}
-		  	// });
 		});
 	}
 };

@@ -18,6 +18,15 @@ var AdminActions = {
             actionType: 'media_info',
             info: info
         });	
+    },
+    addMedia: function(data) {
+        AppDispatcher.dispatch({
+            actionType: 'add_media',
+            data: data
+        }); 
+    },
+    mediaAdded: function() {
+        console.log('media added');
     }
 };
 
