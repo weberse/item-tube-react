@@ -1,5 +1,6 @@
 var React = require('react');
 var SCMediaInfoComponent = require('./info/sc');
+var ImageMediaInfoComponent = require('./info/image');
 var AdminActions = require('../../actions/AdminActions');
 
 var MediaInfoComponent = React.createClass({
@@ -24,6 +25,8 @@ var MediaInfoComponent = React.createClass({
         infoComponent = '';
         if (this.state.info.type == 'sc') {
             infoComponent = <SCMediaInfoComponent info={this.state.info.info} onMediaSubmit={this.onMediaSubmit}/>
+        } else if (this.state.info.type == 'image') {
+            infoComponent = <ImageMediaInfoComponent info={this.state.info.info} onMediaSubmit={this.onMediaSubmit}/>
         }
 		return (
             <div>

@@ -9,8 +9,15 @@ var UrlParser = {
 		if( url.indexOf("soundcloud.com") > -1 ) {
 			sc.resolve(url, this.showSCMediaInfo);
 		} else {
-			return false;
+			if (this.checkImage(url)){
+				console.log('valid image');
+				this.showImageMediaInfo(url)
+			} else {
+				console.log('url error');
+				return false;
+			}
 		}
+		return true;
 	},
 
 	showSCMediaInfo: function(info) {
@@ -19,7 +26,26 @@ var UrlParser = {
 			return;
 		}
 		AdminActions.mediaInfo({type:'sc', info:info});
+	},
 
+	showImageMediaInfo: function(info) {
+		setTimeout(function(){		
+			AdminActions.mediaInfo({type:'image', info:info});
+		}, 500);
+	},
+
+	checkImage: function(url) {
+		try {
+			var img = document.createElement("img");
+			img.src = url;
+		} catch(err) {
+
+		}
+		if(img.height > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	},
 
 	urlError: function() {
